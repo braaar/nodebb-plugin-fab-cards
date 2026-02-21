@@ -6,7 +6,7 @@
   "library": "./library.js",
   "hooks": [],
   "staticDirs": {
-    "static": "./static"
+    "cards": "./cards"
   },
   "scss": ["scss/quickstart.scss"],
   "scripts": ["public/lib/main.js"],

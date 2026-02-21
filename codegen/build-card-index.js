@@ -4,7 +4,7 @@ const fs = require('fs/promises');
 const path = require('path');
 
 const API_ENDPOINT = 'https://cards.fabtcg.com/api/search/v1/cards/?limit=200';
-const OUTPUT_FILE = path.join(__dirname, '..', 'static', 'fab-card-index.json');
+const OUTPUT_FILE = path.join(__dirname, '..', 'cards', 'cards.json');
 
 function normalize(input) {
   return String(input || '')
@@ -66,7 +66,7 @@ async function run() {
 
       const relativeCardUrl = card.url || `/card/${card.card_id || ''}/`;
       const cardUrl = toAbsoluteUrl(relativeCardUrl);
-      const image = card.image?.normal || card.image?.large || card.image?.small || '';
+      const image = card.image?.normal || card.image?.small || card.image?.large ||'';
 
       if (!cardUrl || !image) {
         continue;
