@@ -1,7 +1,7 @@
 {
   "name": "nodebb-plugin-fab-cards",
   "version": "0.1.3",
-  "description": "A starter kit for quickly creating NodeBB plugins",
+  "description": "Automatically links Flesh and Blood card names and shows card previews.",
   "main": "library.js",
   "repository": {
     "type": "git",
