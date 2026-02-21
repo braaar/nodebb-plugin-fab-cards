@@ -1,135 +1,88 @@
 'use strict';
 
-const path = require('path');
-const cheerio = require('cheerio');
+const nconf = require.main.require('nconf');
+const winston = require.main.require('winston');
 
-const CARD_INDEX_PATH = path.join(__dirname, 'data', 'cards-index.json');
-const CARD_HOST = 'https://cards.fabtcg.com';
+const meta = require.main.require('./src/meta');
 
-let cardData = null;
-let cardMatcher = null;
+const controllers = require('./lib/controllers');
 
-function loadCardData() {
-  if (cardData) {
-    return cardData;
-  }
-
-  cardData = require(CARD_INDEX_PATH);
-  const cardNames = Object.keys(cardData.cards || {});
-
-  if (!cardNames.length) {
-    cardMatcher = null;
-    return cardData;
-  }
-
-  const escaped = cardNames
-    .sort((first, second) => second.length - first.length)
-    .map(escapeRegExp);
-
-  cardMatcher = new RegExp(`(^|[^\\p{L}\\p{N}])(${escaped.join('|')})(?=$|[^\\p{L}\\p{N}])`, 'giu');
-  return cardData;
-}
-
-function normalize(input) {
-  return String(input || '')
-    .normalize('NFKC')
-    .toLowerCase()
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function escapeRegExp(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/"/g, '&quot;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
-
-function shouldSkipNode(node) {
-  const parentTag = node.parent && node.parent.tagName ? node.parent.tagName.toLowerCase() : '';
-  return ['a', 'code', 'pre', 'script', 'style', 'textarea'].includes(parentTag);
-}
-
-export function linkifyText(text, cards) {
-if (!cardMatcher || !text || !text.trim()) {
-    return text;
-  }
-
-  cardMatcher.lastIndex = 0;
-  return text.replace(cardMatcher, (fullMatch, prefix, cardName) => {
-    const normalized = normalize(cardName);
-    const card = cards[normalized];
-
-    if (!card) {
-      return fullMatch;
-    }
-
-    const href = `${CARD_HOST}${card.url}`;
-    const safeName = escapeHtml(card.name || cardName);
-    const safeImage = escapeHtml(card.image || '');
-    const safeHref = escapeHtml(href);
-
-    return `${prefix}<a class="fab-card-link" href="${safeHref}" target="_blank" rel="noopener noreferrer" data-fab-card-name="${safeName}" data-fab-card-image="${safeImage}">${cardName}</a>`;
-  });
-}
-
-function processNode($, node, cards) {
-  if (!node) {
-    return;
-  }
-
-  if (node.type === 'text' && !shouldSkipNode(node)) {
-    const original = node.data || '';
-    const replaced = linkifyText(original, cards);
-    if (replaced !== original) {
-      $(node).replaceWith(replaced);
-    }
-    return;
-  }
-
-  if (node.children && node.children.length) {
-    node.children.slice().forEach((child) => processNode($, child, cards));
-  }
-}
+const routeHelpers = require.main.require('./src/routes/helpers');
 
 const plugin = {};
 
-plugin.parsePost = async function (payload) {
-  const data = payload || {};
-  const carrier = data.postData && typeof data.postData.content === 'string'
-    ? data.postData
-    : (typeof data.content === 'string' ? data : null);
+plugin.init = async (params) => {
+	const { router /* , middleware , controllers */ } = params;
 
-  if (!carrier || !carrier.content) {
-    return payload;
-  }
+	// Settings saved in the plugin settings can be retrieved via settings methods
+	const { setting1, setting2 } = await meta.settings.get('quickstart');
+	if (setting1) {
+		console.log(setting2);
+	}
 
-  const type = data.type || data.postData?.type || 'default';
-  if (type !== 'default') {
-    return payload;
-  }
+	/**
+	 * We create two routes for every view. One API call, and the actual route itself.
+	 * Use the `setupPageRoute` helper and NodeBB will take care of everything for you.
+	 *
+	 * Other helpers include `setupAdminPageRoute` and `setupAPIRoute`
+	 * */
+	routeHelpers.setupPageRoute(router, '/quickstart', [(req, res, next) => {
+		winston.info(`[plugins/quickstart] In middleware. This argument can be either a single middleware or an array of middlewares`);
+		setImmediate(next);
+	}], (req, res) => {
+		winston.info(`[plugins/quickstart] Navigated to ${nconf.get('relative_path')}/quickstart`);
+		res.render('quickstart', { uid: req.uid });
+	});
 
-  const loaded = loadCardData();
-  if (!loaded || !loaded.cards || !cardMatcher) {
-    return payload;
-  }
+	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/quickstart', controllers.renderAdminPage);
+};
 
-  const $ = cheerio.load(carrier.content, {
-    decodeEntities: false,
-  }, false);
+/**
+ * If you wish to add routes to NodeBB's RESTful API, listen to the `static:api.routes` hook.
+ * Define your routes similarly to above, and allow core to handle the response via the
+ * built-in helpers.formatApiResponse() method.
+ *
+ * In this example route, the `ensureLoggedIn` middleware is added, which means a valid login
+ * session or bearer token (which you can create via ACP > Settings > API Access) needs to be
+ * passed in.
+ *
+ * To call this example route:
+ *   curl -X GET \
+ *     http://example.org/api/v3/plugins/quickstart/test \
+ *     -H "Authorization: Bearer some_valid_bearer_token"
+ *
+ * Will yield the following response JSON:
+ * {
+ *  "status": {
+ *    "code": "ok",
+ *    "message": "OK"
+ *  },
+ *  "response": {
+ *    "foobar": "test"
+ *  }
+ * }
+ */
+plugin.addRoutes = async ({ router, middleware, helpers }) => {
+	const middlewares = [
+		middleware.ensureLoggedIn, // use this if you want only registered users to call this route
+		// middleware.admin.checkPrivileges, // use this to restrict the route to administrators
+	];
 
-  const root = $.root().get(0);
-  if (root && root.children) {
-    root.children.slice().forEach((child) => processNode($, child, loaded.cards));
-  }
+	routeHelpers.setupApiRoute(router, 'get', '/quickstart/:param1', middlewares, (req, res) => {
+		helpers.formatApiResponse(200, res, {
+			foobar: req.params.param1,
+		});
+	});
+};
 
-  carrier.content = $.root().html() || carrier.content;
-  return payload;
+plugin.addAdminNavigation = (header) => {
+	header.plugins.push({
+		route: '/plugins/quickstart',
+		icon: 'fa-tint',
+		name: 'Quickstart',
+	});
+
+	return header;
 };
 
 module.exports = plugin;

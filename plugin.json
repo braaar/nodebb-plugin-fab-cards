@@ -1,18 +1,22 @@
 {
   "id": "nodebb-plugin-fab-cards",
-  "name": "FAB Cards Auto-Link",
-  "description": "Automatically links Flesh and Blood card names and shows card previews.",
-  "url": "https://github.com/fabtcg/nodebb-plugin-fab-cards",
+  "url": "https://github.com/NodeBB/nodebb-plugin-fab-cards",
   "library": "./library.js",
   "hooks": [
-    {
-      "hook": "filter:parse.post",
-      "method": "parsePost"
-    }
+    { "hook": "static:app.load", "method": "init" },
+    { "hook": "static:api.routes", "method": "addRoutes" },
+    { "hook": "filter:admin.header.build", "method": "addAdminNavigation" }
   ],
   "staticDirs": {
-    "public": "public"
+    "static": "./static"
   },
-  "scripts": ["public/lib/client.js"],
-  "css": ["public/css/style.css"]
+  "scss": ["scss/quickstart.scss"],
+  "scripts": ["public/lib/main.js"],
+  "acpScripts": ["public/lib/acp-main.js"],
+  "modules": {
+    "../client/quickstart.js": "./public/lib/quickstart.js",
+    "../admin/plugins/quickstart.js": "./public/lib/admin.js"
+  },
+  "templates": "templates",
+  "languages": "languages"
 }
