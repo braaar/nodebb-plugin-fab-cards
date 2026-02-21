@@ -37,9 +37,6 @@
     "compatibility": "^3.2.0"
   },
   "author": "braaar",
-  "bugs": {
-    "url": "https://github.com/braaar/nodebb-plugin-fab-cards/issues"
-  },
   "homepage": "https://github.com/braaar/nodebb-plugin-fab-cards#readme",
   "devDependencies": {
     "@commitlint/cli": "20.4.2",
