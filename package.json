@@ -18,5 +18,15 @@
   },
   "nbbpm": {
     "compatibility": "^4.0.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/braaar/nodebb-plugin-fab-cards.git"
+  },
+  "author": "braaar",
+  "bugs": {
+    "url": "https://github.com/braaar/nodebb-plugin-fab-cards/issues"
+  },
+  "homepage": "https://github.com/braaar/nodebb-plugin-fab-cards#readme"
 }
