@@ -1,6 +1,6 @@
 {
-  "name": "nodebb-plugin-fab-cards-2",
-  "version": "0.1.7",
+  "name": "nodebb-plugin-fab-cards",
+  "version": "1.0.0",
   "description": "Automatically links Flesh and Blood card names and shows card previews.",
   "main": "library.js",
   "repository": {

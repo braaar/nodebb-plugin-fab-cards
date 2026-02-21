@@ -1,19 +1,3 @@
-# Quickstart Plugin for NodeBB
+# nodebb-plugin-fab-cards
 
-A starter kit for quickly creating NodeBB plugins. Comes with a pre-setup SCSS file, server side JS script with an `static:app.load` hook, and a client-side script. Most plugins need at least one of the above, so this ought to save you some time. For a full list of hooks have a look at our [wiki page](https://github.com/NodeBB/NodeBB/wiki/Hooks), and for more information about creating plugins please visit our [documentation portal](https://docs.nodebb.org/).
-
-Fork this or copy it, and using your favourite text editor find and replace all instances of `nodebb-plugin-fab-cards` with `nodebb-plugin-your-plugins-name`. Change the author's name in the LICENSE and package.json files.
-
-## Hello World
-
-Really simple, just edit `public/lib/main.js` and paste in `console.log('hello world');`, and that's it!
-
-## Installation
-
-    npm install nodebb-plugin-fab-cards
-
-## Screenshots
-
-Don't forget to add screenshots!
-
-## Prompt
+A client-side script for NodeBB that searches a page for mentions of Flesh & Blood cards and creates a link to the fabtcg card database and an image that shows up when hovering the link.
