@@ -15,6 +15,7 @@
 
 	hooks.on('action:app.load', () => {
 		// called once when nbb has loaded
+		console.log('hello fab!');
 	});
 
 	hooks.on('action:ajaxify.end', (/* data */) => {
