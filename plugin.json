@@ -1,6 +1,7 @@
 {
+  "description": "Automatically links Flesh and Blood card names and shows card previews.",
   "id": "nodebb-plugin-fab-cards",
-  "url": "https://github.com/NodeBB/nodebb-plugin-fab-cards",
+  "url": "https://github.com/braaar/nodebb-plugin-fab-cards",
   "library": "./library.js",
   "hooks": [
     { "hook": "static:app.load", "method": "init" },

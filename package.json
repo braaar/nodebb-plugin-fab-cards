@@ -5,7 +5,7 @@
   "main": "library.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nodebb/nodebb-plugin-fab-cards"
+    "url": "https://github.com/braaar/nodebb-plugin-fab-cards"
   },
   "scripts": {
     "lint": "eslint ."
@@ -30,11 +30,11 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nodebb/nodebb-plugin-fab-cards/issues"
+    "url": "https://github.com/braaar/nodebb-plugin-fab-cards/issues"
   },
   "readmeFilename": "README.md",
   "nbbpm": {
-    "compatibility": "^3.2.0"
+    "compatibility": "^4.0.0"
   },
   "author": "braaar",
   "homepage": "https://github.com/braaar/nodebb-plugin-fab-cards#readme",
