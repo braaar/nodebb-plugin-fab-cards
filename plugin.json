@@ -1,4 +1,5 @@
 {
+  "name": "FAB Cards Auto-Link",
   "description": "Automatically links Flesh and Blood card names and shows card previews.",
   "id": "nodebb-plugin-fab-cards",
   "url": "https://github.com/braaar/nodebb-plugin-fab-cards",
