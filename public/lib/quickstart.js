@@ -7,7 +7,7 @@
 */
 
 define('forum/quickstart', function () {
-	var module = {};
+	const module = {};
 	module.init = function () {
 		$('#last-p').text('quickstart.js loaded!');
 	};
