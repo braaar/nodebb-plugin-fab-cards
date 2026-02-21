@@ -1,52 +1,17 @@
-# nodebb-plugin-fab-cards
+# Quickstart Plugin for NodeBB
 
-A NodeBB plugin that automatically detects mentions of Flesh and Blood card names in posts, converts them into links to the official FAB card database, and shows a card image preview on hover/touch.
+A starter kit for quickly creating NodeBB plugins. Comes with a pre-setup SCSS file, server side JS script with an `static:app.load` hook, and a client-side script. Most plugins need at least one of the above, so this ought to save you some time. For a full list of hooks have a look at our [wiki page](https://github.com/NodeBB/NodeBB/wiki/Hooks), and for more information about creating plugins please visit our [documentation portal](https://docs.nodebb.org/).
 
-## Features
+Fork this or copy it, and using your favourite text editor find and replace all instances of `nodebb-plugin-fab-cards` with `nodebb-plugin-your-plugins-name`. Change the author's name in the LICENSE and package.json files.
 
-- Detects known card names in parsed post content
-- Converts matches to links such as `https://cards.fabtcg.com/card/command-and-conquer-1/`
-- Opens links in a new tab
-- Shows preview image on hover (desktop) and first touch (mobile)
-- Uses a static generated card index (`data/cards-index.json`) for fast runtime lookups
+## Hello World
 
-## Card data generation
+Really simple, just edit `public/lib/main.js` and paste in `console.log('hello world');`, and that's it!
 
-The plugin uses:
+## Installation
 
-- API endpoint: `https://cards.fabtcg.com/api/search/v1/cards/?`
-- Build script: `scripts/build-card-index.js`
+    npm install nodebb-plugin-fab-cards
 
-Generate/update the card index:
+## Screenshots
 
-```bash
-npm install
-npm run build:cards
-```
-
-## Installation in NodeBB
-
-In your plugin folder:
-
-```bash
-npm link
-```
-
-In your NodeBB folder:
-
-```bash
-npm link nodebb-plugin-fab-cards
-./nodebb build
-```
-
-Then activate `FAB Cards Auto-Link` in ACP (`/admin/extend/plugins`).
-
-## Local development NodeBB setup
-
-A local setup guide is included in [dev/README.md](dev/README.md).
-
-## Notes
-
-- The parser only transforms posts for `type=default` rendering.
-- Existing links/code blocks are ignored to avoid corrupting content.
-- Re-run `npm run build:cards` periodically to refresh card data.
+Don't forget to add screenshots!

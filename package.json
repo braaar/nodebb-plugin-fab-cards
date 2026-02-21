@@ -1,32 +1,52 @@
 {
   "name": "nodebb-plugin-fab-cards",
-  "version": "0.1.0",
-  "description": "Auto-link Flesh and Blood card names in NodeBB posts with hover/touch previews.",
+  "version": "0.1.1",
+  "description": "A starter kit for quickly creating NodeBB plugins",
   "main": "library.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nodebb/nodebb-plugin-fab-cards"
+  },
   "scripts": {
-    "build:cards": "node scripts/build-card-index.js"
+    "lint": "eslint ."
   },
   "keywords": [
     "nodebb",
-    "nodebb-plugin",
-    "flesh-and-blood",
-    "fab"
+    "plugin",
+    "quickstart",
+    "shell"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "license": "MIT",
-  "dependencies": {
-    "cheerio": "^1.0.0"
+  "bugs": {
+    "url": "https://github.com/nodebb/nodebb-plugin-fab-cards/issues"
   },
+  "readmeFilename": "README.md",
   "nbbpm": {
-    "compatibility": "^4.0.0"
-  },
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/braaar/nodebb-plugin-fab-cards.git"
+    "compatibility": "^3.2.0"
   },
   "author": "braaar",
   "bugs": {
     "url": "https://github.com/braaar/nodebb-plugin-fab-cards/issues"
   },
-  "homepage": "https://github.com/braaar/nodebb-plugin-fab-cards#readme"
+  "homepage": "https://github.com/braaar/nodebb-plugin-fab-cards#readme",
+  "devDependencies": {
+    "@commitlint/cli": "20.4.2",
+    "@commitlint/config-angular": "20.4.2",
+    "eslint": "10.0.1",
+    "eslint-config-nodebb": "2.0.1",
+    "husky": "9.1.7",
+    "lint-staged": "16.2.7"
+  }
 }
