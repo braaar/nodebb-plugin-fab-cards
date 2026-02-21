@@ -1,0 +1,22 @@
+{
+  "name": "nodebb-plugin-fab-cards",
+  "version": "0.1.0",
+  "description": "Auto-link Flesh and Blood card names in NodeBB posts with hover/touch previews.",
+  "main": "library.js",
+  "scripts": {
+    "build:cards": "node scripts/build-card-index.js"
+  },
+  "keywords": [
+    "nodebb",
+    "nodebb-plugin",
+    "flesh-and-blood",
+    "fab"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0"
+  },
+  "nbbpm": {
+    "compatibility": "^4.0.0"
+  }
+}
