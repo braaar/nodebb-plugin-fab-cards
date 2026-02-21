@@ -15,3 +15,5 @@ Really simple, just edit `public/lib/main.js` and paste in `console.log('hello w
 ## Screenshots
 
 Don't forget to add screenshots!
+
+## Prompt

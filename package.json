@@ -1,6 +1,6 @@
 {
-  "name": "nodebb-plugin-fab-cards",
-  "version": "0.1.4",
+  "name": "nodebb-plugin-fab-cards-2",
+  "version": "0.1.7",
   "description": "Automatically links Flesh and Blood card names and shows card previews.",
   "main": "library.js",
   "repository": {
@@ -8,7 +8,8 @@
     "url": "https://github.com/braaar/nodebb-plugin-fab-cards"
   },
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build:cards": "node codegen/build-card-index.js"
   },
   "keywords": [
     "nodebb",
