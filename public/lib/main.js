@@ -20,15 +20,28 @@
 		// Sort card names by length descending to avoid partial matches
 		const sortedCardNames = Object.keys(cardNameToData).sort((a, b) => b.length - a.length);
 
-		function insertCardLinks(text) {
+		function insertCardLinks(html) {
 			sortedCardNames.forEach((cardName) => {
 				// Use word boundaries and allow for punctuation after the card name
 				const cardData = cardNameToData[cardName];
-				text = text.replace(cardName, `<a href="${cardData.url}" class="fab-card" target="_blank">
-					<img src="${cardData.image}" alt="${cardName}">
-					${cardName}</a>`);
+				const regexEscapedCardName = cardName.replace(
+					/[-\/\\^$*+?.()|[\]{}]/g,
+					'\\$&',
+				);
+				const expression = new RegExp(
+					`(?<!<a[^>]*[^>]*>[^>]*|")${regexEscapedCardName}(?!["])`,
+					'g',
+				);
+				html = html.replaceAll(
+					expression,
+					`<a href="${cardData.url}" class="fab-card" target="_blank">
+					${cardName}<img src="${cardData.image}" alt="${cardName}">
+					</a>`,
+				);
 			});
-			return text;
+
+			
+			return html;
 		}
 		// find each element with the attribute component="post/content"
 		// and insert card links

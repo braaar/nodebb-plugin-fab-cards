@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>html demo</title>
+    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    <style>
+      .fab-card {
+        color: red;
+        font-weight: bold;
+        position: relative;
+        cursor: pointer;
+        img {
+          display: none;
+          position: absolute;
+          left: 50%;
+          top: 100%;
+          transform: translateX(-40%);
+          z-index: 10;
+          max-width: 400px;
+          max-height: 400px;
+          box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+          background: #fff;
+          border-radius: 8px;
+          padding: 4px;
+        }
+      }
+
+      .fab-card:hover {
+        color: blue;
+      }
+      .fab-card:hover img {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div component="post/content">
+      <p>Fireball is a card</p>
+    </div>
+    <div component="post/content">
+      <p>Lightning Bolt is a card, but so is Lightning</p>
+      <p>Lightning</p>
+    </div>
+    <script>
+      // Example card data - in a real implementation, this would come from the server
+      const cardNameToData = {
+        Fireball: {
+          url: "https://example.com/fireball",
+          image:
+            "https://d2wlb52bya4y8z.cloudfront.net/media/cards/large/HVY071.webp",
+        },
+        "Lightning Bolt": {
+          url: "https://example.com/lightning-bolt",
+          image:
+            "https://d2wlb52bya4y8z.cloudfront.net/media/cards/large/U-ELE186.webp",
+        },
+        Counterspell: {
+          url: "https://example.com/counterspell",
+          image:
+            "https://d2wlb52bya4y8z.cloudfront.net/media/cards/large/HVY071.webp",
+        },
+        Lightning: {
+          url: "https://example.com/lightning",
+          image:
+            "https://d2wlb52bya4y8z.cloudfront.net/media/cards/large/HVY071.webp",
+        },
+      };
+      const cardNames = Object.keys(cardNameToData);
+      // Sort card names by length in descending order to handle substrings correctly
+      const sortedCardNames = cardNames.sort((a, b) => b.length - a.length);
+      // Replace card names in the text with links and images
+
+      function insertCardLinks(html) {
+        sortedCardNames.forEach((cardName) => {
+          // Use word boundaries and allow for punctuation after the card name
+          const cardData = cardNameToData[cardName];
+          const regexEscapedCardName = cardName.replace(
+            /[-\/\\^$*+?.()|[\]{}]/g,
+            "\\$&",
+          );
+          const expression = new RegExp(
+            `(?<!<a[^>]*[^>]*>[^>]*|")${regexEscapedCardName}(?!["])`,
+            "g",
+          );
+          html = html.replaceAll(
+            expression,
+            `<a href="${cardData.url}" class="fab-card" target="_blank">
+      ${cardName}<img src="${cardData.image}" alt="${cardName}">
+      </a>`,
+          );
+        });
+
+        return html;
+      }
+
+      $('[component="post/content"]').each((i, el) => {
+        const html = $(el).html();
+        const replaced = insertCardLinks(html);
+        $(el).html(replaced);
+      });
+    </script>
+  </body>
+</html>
