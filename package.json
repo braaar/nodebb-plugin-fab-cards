@@ -1,7 +1,7 @@
 {
   "name": "nodebb-plugin-fab-cards",
   "version": "1.0.0",
-  "description": "Automatically links Flesh and Blood card names and shows card previews.",
+  "description": "Automatically links Flesh and Blood card names in posts and shows card previews on hover.",
   "main": "library.js",
   "repository": {
     "type": "git",
@@ -35,7 +35,7 @@
   },
   "readmeFilename": "README.md",
   "nbbpm": {
-    "compatibility": "^4.0.0"
+    "compatibility": "^1.11.0"
   },
   "author": "braaar",
   "homepage": "https://github.com/braaar/nodebb-plugin-fab-cards#readme",
