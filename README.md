@@ -21,9 +21,9 @@ You can install `nodebb-plugin-fab-cards` by searching for it in the admin panel
 Here's how it looks in action
 ![Screenshot 2026-02-22 at 11 45 52](https://github.com/user-attachments/assets/99fee26b-f8f0-4d74-b02a-76eba7906ecd)
 
-## Benchmark post
+## Test post
 
-Post this in a NodeBB forum to benchmark the plugin
+Post this in a NodeBB forum to test the plugin
 
 ```
 I wonder What Happens Next?
