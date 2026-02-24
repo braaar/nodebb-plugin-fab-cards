@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-fab-cards",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Automatically links Flesh and Blood card names in posts and shows card previews on hover.",
   "main": "library.js",
   "repository": {
@@ -9,7 +9,8 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "build:cards": "node codegen/build-card-index.js"
+    "build:cards": "node codegen/build-card-index.js",
+    "test": "node --test"
   },
   "keywords": [
     "nodebb",
@@ -46,5 +47,8 @@
     "eslint-config-nodebb": "2.0.1",
     "husky": "9.1.7",
     "lint-staged": "16.2.7"
+  },
+  "dependencies": {
+    "jsdom": "^28.1.0"
   }
 }

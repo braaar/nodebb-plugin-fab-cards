@@ -11,6 +11,17 @@ const routeHelpers = require.main.require('./src/routes/helpers');
 
 const plugin = {};
 
+
+const parser = require('./lib/parser.js');
+
+
+plugin.parsePost = async (data) => {
+	const updatedContent = parser.insertCardLinks(data.postData.content);
+	data.postData.content = updatedContent;
+	
+	return data;
+};
+
 plugin.init = async (params) => {
 	const { router /* , middleware , controllers */ } = params;
 
