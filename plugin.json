@@ -4,7 +4,12 @@
   "id": "nodebb-plugin-fab-cards",
   "url": "https://github.com/braaar/nodebb-plugin-fab-cards",
   "library": "./library.js",
-  "hooks": [],
+  "hooks": [
+    {
+      "hook": "filter:parse.post",
+      "method": "parsePost"
+    }
+  ],
   "staticDirs": {
     "cards": "./cards"
   },
