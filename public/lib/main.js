@@ -29,7 +29,7 @@
 					'\\$&',
 				);
 				const expression = new RegExp(
-					`(?<!<a[^>]*[^>]*>[^>]*|"|@|[0-9])${regexEscapedCardName}(?=[<?!.,;:\s])`,
+					`(?<!<a[^>]*[^>]*>[^>]*|["@-_;:?!.,;:'^¨*#$€&/]|[0-9])${regexEscapedCardName}(?=[<?!.,;:\s])`,
 					'g',
 				);
 				html = html.replaceAll(
