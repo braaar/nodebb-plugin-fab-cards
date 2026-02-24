@@ -40,8 +40,13 @@ My favourite Brute cards:
 - Clash of Might
 - **Alpha Instinct**💪🏼
 
+
 [Agility](https://agility.com) in a sentence.
 Agility in a sentence.
+Agile Windup in a sentence.
+This is Agility in a sentence. 
+
+This is Agile Windup in a sentence.
 
 **Snatch** is amazing. So is ❄️Aether Hail❄️
 
