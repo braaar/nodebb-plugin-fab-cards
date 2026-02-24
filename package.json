@@ -47,5 +47,8 @@
     "eslint-config-nodebb": "2.0.1",
     "husky": "9.1.7",
     "lint-staged": "16.2.7"
+  },
+  "dependencies": {
+    "jsdom": "^28.1.0"
   }
 }
