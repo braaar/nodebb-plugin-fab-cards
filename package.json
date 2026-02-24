@@ -49,6 +49,6 @@
     "lint-staged": "16.2.7"
   },
   "dependencies": {
-    "jsdom": "^28.1.0"
+    "jsdom": "^21.1.0"
   }
 }
