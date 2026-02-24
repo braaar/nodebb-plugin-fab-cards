@@ -1,0 +1,3 @@
+<p dir="auto">Here's a <a href="google.com">link</a> and whatnot!<br />
+<strong>Maybe</strong></p>
+<p dir="auto">image too <img src="image.jpg" alt="alt text" class=" img-fluid img-markdown" /></p>
