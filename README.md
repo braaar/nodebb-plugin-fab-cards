@@ -4,13 +4,14 @@ A plugin for NodeBB that adds a client-side script that searches posts for menti
 
 ## How it works
 
-This plugin matches exact card names that are spelled with correct capitalization and punctuation. As an example, `Fiddlers Green` will not be matched, but `Fiddler's Green` will, and `thunk` will not be matched, but `Thunk` will. If we were more generous with matches we would get false positives in sentences such as "weird flex but ok", since Flex is a Flesh and Blood card.
+- Card names are matched using word boundaries, so they can appear anywhere in the text as long as they are not part of a larger word.
+- Matching is case-sensitive and requires correct punctuation (e.g., `Fiddler's Green` will match, but `Fiddlers Green` will not).
+- Card names are not matched inside `<a>` tags (to avoid nested links).
+- The matching logic sorts card names by length (longest first) to avoid partial matches (e.g., `Flex Strength` is matched before `Flex`).
+- Card names are not matched inside empty or whitespace-only text nodes.
+- Card names are not matched in username mentions, e.g. @Riptide
 
-Card names will not be matched if they are:
-
-- Inside an <a> tag (since nested links are not OK)
-- Preceded by any of these characters: `"@-_;:?!.,;:'^¨*#$€&/`
-- Succeeded by any character other than these: `<?!.,;:` (whitespace is also allowed)
+This approach allows for more natural mentions of card names in posts, while still avoiding most false positives. For example, `Flex` will be matched as a card name in "I love Flex!", but not in "I love Flex Strength!".
 
 ## Installation
 
